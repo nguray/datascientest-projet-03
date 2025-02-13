@@ -4,3 +4,4 @@ sg_ports            = [22, 8080, 8069, 80]
 instance_type       = "t2.medium"
 username            = "ubuntu"
 region              = "us-east-1"
+script_name         = "docker.sh"

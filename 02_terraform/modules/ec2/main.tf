@@ -17,7 +17,7 @@ resource "aws_instance" "project_03" {
       private_key = file(var.private_key_path)
       host        = self.public_ip
     }
-    scripts = ["./scripts/docker.sh"]
+    scripts = ["./scripts/${var.script_name}"]
 
   }
 
