@@ -1,0 +1,9 @@
+services:
+  {{ icwebapp_name }}:
+    image: {{ icwebapp_image }}
+    container_name: {{ icwebapp_name }}
+    ports:
+      - {{ icwebapp_host_port }}:8080
+    environment:
+      - "ODOO_URL=http://{{ ansible_host }}:{{ odoo_host_port }}"
+      - "PGADMIN_URL=http://{{ ansible_host }}:{{ pgadmin_host_port }}"

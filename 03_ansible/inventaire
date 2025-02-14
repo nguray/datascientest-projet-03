@@ -1,0 +1,2 @@
+[test]
+machine-1 ansible_host=107.23.194.194 ansible_user=ubuntu ansible_password=datscientest ansible_ssh_extra_args='-o StrictHostKeyChecking=no'

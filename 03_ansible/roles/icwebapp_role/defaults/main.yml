@@ -1,0 +1,5 @@
+---
+# defaults file for icwebapp_role
+icwebapp_image: ulrichsteve/ic-webapp:1.0
+icwebapp_name: ic-webapp
+icwebapp_host_port: 8080

@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    environment{
+        DOCKERFILE_NAME = "Dockerfile"
+        DOCKER_DIR = "../01_docker"
+        IMAGE_NAME = "ic-webapp"
+        IMAGE_TAG = "1.0"
+        PORT_APP="8080"
+        PORT_HOST="8080"
+        DOCKERHUB_USERNAME = "nguray"
+        DOCKERHUB_PASSWORD = credentials('dockerhub_password')
+    }
+    stages{
+        stage('Build Image'){
+            steps{
+                sh'''
+                    docker build -f ${DOCKER_DIR}/${DOCKERFILE_NAME} -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_DIR}/.
+                '''
+            }
+        }
+        stage('Run & Test Image'){
+            steps{
+                sh'''
+                    docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
+                    docker run --rm --name ${IMAGE_NAME} -dp ${PORT_HOST}:${PORT_APP} ${IMAGE_NAME}:${IMAGE_TAG}
+                    sleep 5
+                    curl -I http://localhost:${PORT_HOST} | grep "200"
+                '''
+            }
+        }
+        stage('Stop & Delete Container'){
+            steps{
+                sh'''
+                    docker stop ${IMAGE_NAME}
+                    docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
+                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHU_NAME}/${}
+                '''
+            }
+        }
+        stage('Login & Push Image'){
+            steps{
+                sh'''
+                    echo ${DOCKERHUB_PASSWORD} | docker login -u ${DCOKERHUB_USERNAME} --password-stdin
+                    docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                '''
+            }
+        }
+    }
+}

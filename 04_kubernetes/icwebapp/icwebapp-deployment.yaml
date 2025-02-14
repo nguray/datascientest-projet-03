@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: icwebapp-deploy
+  name: icwebapp-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: icwebapp-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: icwebapp-deploy
+    spec:
+      containers:
+      - image: ulrichsteve/ic-webapp:1.0
+        name: ic-webapp
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ODOO_URL
+          valueFrom:
+            configMapKeyRef:
+              name: icwebapp-configmaps
+              key: odoo_url
+        - name: PGADMIN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: icwebapp-configmaps
+              key: pgadmin_url
+        resources: {}
+status: {}

@@ -1,0 +1,11 @@
+---
+- name: Deploy stack queue
+  hosts: all
+  become: true
+  roles:
+    - k3s_role
+    # - odoo_role
+    # - pgadmin_role
+    # - icwebapp_role
+    
+  

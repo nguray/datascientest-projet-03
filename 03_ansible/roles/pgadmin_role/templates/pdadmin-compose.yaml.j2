@@ -1,0 +1,9 @@
+services:
+  {{ pgadmin_name }}:
+    container_name: {{ pgadmin_name }}
+    image: {{ pgadmin_image }}
+    environment:
+     - PGADMIN_DEFAULT_EMAIL=toto@toto.com
+     - PGADMIN_DEFAULT_PASSWORD=pgadmin
+    ports:
+      - {{ pgadmin_host_port }}:80

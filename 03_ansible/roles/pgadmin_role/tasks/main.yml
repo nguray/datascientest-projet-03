@@ -1,0 +1,20 @@
+---
+# tasks file for pgadmin_role
+- name: generate compose file pgadmin
+  template:
+    src: "pgadmin-compose.yaml.j2"
+    dest: "/home/{{ ansible_user }}/pgadmin-compose.yaml"
+    mode: "0555"
+  tags: start
+
+- name: start stack pgadmin
+  command: "docker compose -f /home/{{ ansible_user }}/pgadmin-compose.yaml up -d"
+  tags: start
+
+- name: stop stack pgadmin
+  command: "docker compose -f /home/{{ ansible_user }}/pgadmin-compose.yaml down -v"
+  tags: delete
+
+- name: delete compose file
+  command: "rm -rf /home/{{ ansible_user }}/pgadmin-compose.yaml"
+  tags: delete

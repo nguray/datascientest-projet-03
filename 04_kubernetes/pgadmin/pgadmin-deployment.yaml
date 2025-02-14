@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: pgadmin-deployment
+  name: pgadmin-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pgadmin-deployment
+    spec:
+      containers:
+      - image: dpage/pgadmin4
+        name: pgadmin4
+        ports:
+        - containerPort: 80
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          valueFrom:
+            configMapKeyRef:
+              name: pgadmin-configmaps
+              key: PGADMIN_DEFAULT_EMAIL
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: pgadmin-configmaps
+              key: PGADMIN_DEFAULT_PASSWORD
+        resources: {}
+status: {}

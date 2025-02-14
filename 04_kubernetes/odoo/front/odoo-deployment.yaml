@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: odoo-deployment
+  name: odoo-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo-deployment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: odoo-deployment
+    spec:
+      # volumes:
+      # - name: config
+      #   persistentVolumeClaim:
+      #     claimName: odoo-pvc
+      # - name: web-data
+      #   persistentVolumeClaim:
+      #     claimName: odoo-pvc
+      # - name: addons
+      #   persistentVolumeClaim:
+      #     claimName: odoo-pvc
+      containers:
+      - image: odoo:17.0
+        name: odoo
+        ports:
+        - containerPort: 8069
+        # volumeMounts:
+        # - name: web-data
+        #   mountPath: /var/lib/odoo
+        # - name: config
+        #   mountPath: /etc/odoo
+        # - name: addons
+        #   mountPath: /mnt/extra-addons
+        env:
+        - name: HOST
+          valueFrom:
+            secretKeyRef:
+              name: odoo-secret
+              key: host
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: odoo-secret
+              key: user
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: odoo-secret
+              key: password
+        resources: {}
+status: {}

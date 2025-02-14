@@ -1,0 +1,30 @@
+services:
+  {{ odoo_name }}:
+    image: {{ odoo_image }}
+    container_name: {{ odoo_name }}
+    depends_on:
+      - {{ database_name }}
+    ports:
+      - "{{ odoo_host_port }}:8069"
+    volumes:
+      - {{  odoo_web_data }}:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+    environment:
+      - HOST= {{ database_name }}
+      - USER={{ database_username }}
+      - PASSWORD={{ database_password }}
+  {{ database_name }}:
+    image: {{ database_image }}
+    container_name: {{ database_name }}
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD={{ database_password }}
+      - POSTGRES_USER={{ database_username }}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - {{ odoo_db_data }}:/var/lib/postgresql/data/pgdata
+
+volumes:
+  {{ odoo_web_data }}:
+  {{ odoo_db_data }}:

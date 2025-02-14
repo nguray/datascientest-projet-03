@@ -1,0 +1,4 @@
+resources:
+  - icwebapp-configmaps.yaml
+  - icwebapp-deployment.yaml
+  - icwebapp-service.yaml

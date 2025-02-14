@@ -1,0 +1,11 @@
+---
+# defaults file for odoo_role
+odoo_image: odoo:17.0
+odoo_name: odoo_web
+database_name: db-odoo
+database_username: odoo
+database_password: myodoo
+odoo_host_port: 8069
+odoo_web_data:  odoo-web-data
+odoo_db_data: odoo-db-data
+database_image: postgres:15

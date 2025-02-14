@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: icwebapp-configmaps
+  labels:
+    app: ic-webapp
+data:
+  odoo_url: http://54.82.57.38:30069
+  pgadmin_url: http://54.82.57.38:30081
