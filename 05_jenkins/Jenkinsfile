@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         DOCKERFILE_NAME = "Dockerfile"
-        DOCKER_DIR = "../01_docker"
+        DOCKER_DIR = "./01_docker"
         IMAGE_NAME = "ic-webapp"
         IMAGE_TAG = "1.0"
         PORT_APP="8080"
