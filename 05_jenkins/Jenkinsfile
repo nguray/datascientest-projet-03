@@ -24,7 +24,7 @@ pipeline {
                     docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
                     docker run --rm --name ${IMAGE_NAME} -dp ${PORT_HOST}:${PORT_APP} ${IMAGE_NAME}:${IMAGE_TAG}
                     sleep 5
-                    curl -I http://localhost:${PORT_HOST} | grep "200"
+                    curl -I http://172.17.0.1:${PORT_HOST} | grep "200"
                 '''
             }
         }
