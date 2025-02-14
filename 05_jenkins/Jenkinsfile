@@ -6,7 +6,7 @@ pipeline {
         IMAGE_NAME = "ic-webapp"
         IMAGE_TAG = "1.0"
         PORT_APP="8080"
-        PORT_HOST="8080"
+        PORT_HOST="8081"
         DOCKERHUB_USERNAME = "nguray"
         DOCKERHUB_PASSWORD = credentials('dockerhub_password')
     }
