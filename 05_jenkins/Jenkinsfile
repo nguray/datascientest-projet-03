@@ -30,11 +30,13 @@ pipeline {
         }
         stage('Stop & Delete Container'){
             steps{
-                sh'''
-                    docker stop ${IMAGE_NAME}
-                    docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
-                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_USERNAME/${DOCKERHUB_NAME}:${IMAGE_TAG}
-                '''
+                script{
+                    sh '''
+                        docker stop  ${IMAGE_NAME}
+                        docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
+                        docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}
+                    '''
+                }
             }
         }
         stage('Login & Push Image'){
