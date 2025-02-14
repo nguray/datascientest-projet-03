@@ -33,7 +33,7 @@ pipeline {
                 sh'''
                     docker stop ${IMAGE_NAME}
                     docker ps -a | grep -i ${IMAGE_NAME} && docker rm -f ${IMAGE_NAME}
-                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHU_NAME}/${}
+                    docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHU_NAME}/${IMAGE_TAG}
                 '''
             }
         }
